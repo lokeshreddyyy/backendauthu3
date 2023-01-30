@@ -41,7 +41,7 @@ const authenticateToken = (request, response, next) => {
         response.send("Invalid JWT Token");
       } else {
         request.username = payload.username;
-        // console.log(payload)
+        // console.log(payload)//here we get authontication user name
         next();
       }
     });
@@ -49,7 +49,7 @@ const authenticateToken = (request, response, next) => {
 };
 
 app.get("/profile/", authenticateToken, async (request, response) => {
-  let { username } = request;
+  let { username } = request;//console.log(username) here we will get same user name
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}'`;
   const userDetails = await db.get(selectUserQuery);
   response.send(userDetails);
